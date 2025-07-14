@@ -5,7 +5,7 @@ import User from '#models/user'
 export default class SignUpService {
   public async handle(data: any) {
     try {
-      await customerSignUpValidator.validate(data) as any
+      ;(await customerSignUpValidator.validate(data)) as any
       const customerPayload = this.generateCustomerPayload(data)
       const customer = await Customer.create(customerPayload)
 
@@ -36,7 +36,7 @@ export default class SignUpService {
         success: false,
         message: 'Error creating customer',
         data: error.messages,
-        error: error
+        error: error,
       }
     }
   }

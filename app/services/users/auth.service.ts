@@ -1,4 +1,4 @@
-import User from "#models/user"
+import User from '#models/user'
 
 export default class AuthService {
   public async handle(data: any) {

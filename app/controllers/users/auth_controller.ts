@@ -4,7 +4,6 @@ import { inject } from '@adonisjs/core'
 
 @inject()
 export default class AuthController {
-
   constructor(private authService: AuthService) {}
 
   public async handle({ request, response }: HttpContext) {

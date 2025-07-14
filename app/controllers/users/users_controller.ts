@@ -5,7 +5,6 @@ import User from '#models/user'
 
 @inject()
 export default class UsersController {
-
   constructor(private authService: AuthService) {}
 
   public async handle({ request, response, auth }: HttpContext) {
