@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import Environment from './environment.js'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Server extends BaseModel {
   @column({ isPrimary: true })
@@ -15,6 +17,9 @@ export default class Server extends BaseModel {
   declare name: string
 
   @column()
+  declare host: string
+
+  @column()
   declare description: string
 
   @column()
@@ -28,4 +33,7 @@ export default class Server extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @belongsTo(() => Environment)
+  declare environment: BelongsTo<typeof Environment>
 }

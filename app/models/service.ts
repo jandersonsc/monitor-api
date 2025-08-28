@@ -1,5 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeCreate, belongsTo, column } from '@adonisjs/lucid/orm'
+import { randomUUID } from 'crypto'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import Server from './server.js'
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -13,6 +16,12 @@ export default class Service extends BaseModel {
 
   @column()
   declare name: string
+
+  @column()
+  declare domain: string
+
+  @column()
+  declare publicKey: string
 
   @column()
   declare description: string
@@ -40,4 +49,12 @@ export default class Service extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @beforeCreate()
+  public static async generatePublicKey(service: Service) {
+    service.publicKey = randomUUID()
+  }
+
+  @belongsTo(() => Server)
+  declare server: BelongsTo<typeof Server>
 }

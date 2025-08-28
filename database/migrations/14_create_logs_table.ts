@@ -11,6 +11,7 @@ export default class extends BaseSchema {
       table.string('type')
       table.string('message')
       table.enum('level', ['info', 'warning', 'error', 'success']).notNullable().defaultTo('info')
+      table.string('request')
       table.text('data')
       table.integer('duration')
 

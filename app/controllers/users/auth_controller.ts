@@ -4,7 +4,7 @@ import { inject } from '@adonisjs/core'
 
 @inject()
 export default class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   public async handle({ request, response }: HttpContext) {
     const result = await this.authService.handle(request.all())
@@ -13,6 +13,13 @@ export default class AuthController {
       return response.status(401).json(result)
     }
 
-    return response.status(200).json(result)
+    return response.status(200)
+      .cookie('token', result.data!.token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 60 * 60 * 24 * 30,
+        sameSite: 'strict'
+      })
+      .json(result)
   }
 }

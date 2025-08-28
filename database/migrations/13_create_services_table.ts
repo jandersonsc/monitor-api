@@ -9,6 +9,8 @@ export default class extends BaseSchema {
       table.integer('customer_id').references('id').inTable('customers').notNullable()
       table.integer('server_id').references('id').inTable('servers').notNullable()
       table.string('name').notNullable()
+      table.string('domain').nullable()
+      table.string('public_key').nullable()
       table.string('description')
       table.string('protocol').notNullable()
       table.integer('port').notNullable()
