@@ -3,10 +3,10 @@ import Service from "#models/service"
 import type { HttpContext } from "@adonisjs/core/http"
 
 export default class CreateLogsController {
-  public async handle({ request, response, auth }: HttpContext) {
+  public async handle({ request, response }: HttpContext) {
     //const customerId = auth.user?.customerId
     const publicKey = request.header('api-key')
-    const { type, message, level, data, duration } = request.body()
+    const { type, message, level, duration } = request.body()
 
     if (!publicKey) {
       return response.badRequest({
