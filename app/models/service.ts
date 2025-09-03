@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeCreate, belongsTo, column } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeCreate, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import { randomUUID } from 'crypto'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Server from './server.js'
+import ServicesVersion from './services_version.js'
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -57,4 +58,7 @@ export default class Service extends BaseModel {
 
   @belongsTo(() => Server)
   declare server: BelongsTo<typeof Server>
+
+  @hasMany(() => ServicesVersion)
+  declare versions: HasMany<typeof ServicesVersion>
 }
